@@ -3,11 +3,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.swing.ListModel;
 
 // instead of returning true false, maybe return highest value card of rank or -1 if condition is false
 
@@ -211,6 +208,16 @@ public class Hand {
         if(value == 'K') return 13;
         if(value == 'A') return 14;
         return 0;
+    }
+
+    public boolean isValidHand() {
+        List<Character> validValues = Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
+        List<Character> validSuits = Arrays.asList('S', 'H', 'D', 'C');
+        for(Card card: cards) {
+            if(!validValues.contains(card.getValue())) return false;
+            if(!validSuits.contains(card.getSuit())) return false;
+        }
+        return true;
     }
 
     public String toString() {

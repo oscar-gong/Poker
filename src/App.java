@@ -1,27 +1,37 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class App {
     public static void main(String[] args) throws Exception {
-
-        // Take in hands from command line input then form a list using split
-
         Scanner scanner = new Scanner(System.in);
+
         int p1WinCount = 0;
         int p2WinCount = 0;
+
         while(scanner.hasNextLine()){
             String cards = scanner.nextLine();
+            
+            if(cards.length() == 0) break;
+            if(cards.length() != 29) {
+                System.out.println("Please enter both hands with valid format.");
+                continue;
+            }
+
             String[] player1 = cards.substring(0,14).split(" ");
             String[] player2 = cards.substring(15,29).split(" ");
             Hand playerHand1 = new Hand(player1);
             Hand playerHand2 = new Hand(player2);
+
+            if(!(playerHand1.isValidHand() && playerHand2.isValidHand())) {
+                System.out.println("Invalid hand");
+                continue;
+            }
+
             int winner = findWinner(playerHand1, playerHand2);
             if(winner == 1) p1WinCount++;
             if(winner == 2) p2WinCount++;
         }
+
         scanner.close();
 
         System.out.println("Player 1: " + p1WinCount);
@@ -119,6 +129,4 @@ public class App {
 
         return 0;
     }
-    // Make function to compare two hands
-
 }
